@@ -1,0 +1,47 @@
+类组件 ：有生命周期 ，有this ，有state   函数组件： 无生命周期， 无this， 无state  函数组件的性能比类组件的性能要高，因为类组件使用的时候要实例化，而函数组件直接执行函数取返回结果即可。为了提高性能，尽量使用函数组件。
+	
+生命周期：componentWillMount 在渲染前调用,在客户端也在服务端。
+	componentDidMount : 在第一次渲染后调用，只在客户端。之后组件已经生成了对应的DOM结构，可以通过this.getDOMNode()来进行访问。 如果你想和其他JavaScript框架一起使用，可以在这个方法中调用setTimeout, setInterval或者发送AJAX请求等操作(防止异步操作阻塞UI)。
+	componentWillReceiveProps 在组件接收到一个新的 prop (更新后)时被调用。这个方法在初始化render时不会被调用
+	shouldComponentUpdate 返回一个布尔值。在组件接收到新的props或者state时被调用。在初始化时或者使用forceUpdate时不被调用。可以在你确认不需要更新组件时使用。
+	componentWillUpdate在组件接收到新的props或者state但还没有render时被调用。在初始化时不会被调用。
+	componentDidUpdate 在组件完成更新后立即调用。在初始化时不会被调用
+	componentWillUnmount在组件从 DOM 中移除之前立刻被调用。
+
+React 事件绑定属性的命名采用驼峰式写法，而不是小写;  如果采用 JSX 的语法你需要传入一个函数作为事件处理函数，而不是一个字符串(DOM 元素的写法)
+handleEvent(): 用于事件监听 ,只能在类组件中使用
+
+在 React 中，你可以创建不同的组件来封装各种你需要的行为。然后还可以根据应用的状态变化只渲染其中的一部分。
+
+隐藏组件 直接在 render()中返回null即可  render()=>null   
+
+
+Keys 可以在 DOM 中的某些元素被增加或删除的时候帮助 React 识别哪些元素发生了变化。因此你应当给数组中的每一个元素赋予一个确定的标识。一个元素的 key 最好是这个元素在列表中拥有的一个独一无二的字符串。通常，我们使用来自数据的 id 作为元素的 key; 当元素没有确定的 id 时，你可以使用他的序列号索引 index 作为 key：
+元素的 key 只有在它和它的兄弟节点对比时才有意义。
+比方说，如果你提取出一个 ListItem 组件，你应该把 key 保存在数组中的这个 <ListItem /> 元素上，而不是放在 <ListItem />组件中的 <li> 元素上。
+
+
+组件 api 	设置状态：setState --构造函数内唯一可以初始化 this.state的方法
+	替换状态：replaceState
+	设置属性：setProps
+	替换属性：replaceProps
+	强制更新：forceUpdate
+	获取DOM节点：findDOMNode
+	判断组件挂载状态：isMounted
+
+React 组件的数据可以通过 componentDidMount 方法中的 Ajax 来获取，当从服务端获取数据时可以将数据存储在 state 中，再用 this.setState 方法重新渲染 UI。
+当使用异步加载数据时，在组件卸载前使用 componentWillUnmount 来取消未完成的请求。  .abord()终止请求
+
+
+hook: 必须写在顶层，如果有判断写在hook内部
+	*useState(data):返回的是两个参数，返回一个 state，以及更新 state 的函数。
+	*useContext():
+	*useRef(initialValue):useRef 返回一个可变的 ref 对象，其 .current 属性被初始化为传入的参数（initialValue）。返回的 ref 对象在组件的整个生命周期内保持不变。
+	*useEffect(function,array)：第二个参数默认为空时所有触发条件默认都生效，第二个参数填写监听数组中填写的数据的更新                 生命周期触发条件为 1，组件挂载后，数据更新后(如果有)，组件卸载前
+	*useReducer():接收一个形如 (state, action) => newState 的 reducer，并返回当前的 state 以及与其配套的 dispatch 方法。
+	*useMemo(function,array):避免组件重复渲染 第二个参数默认为空时所有触发条件默认都生效，第二个参数填写同上
+	*useImperativeHandle()：
+	*useLayoutEffect():与 componentDidMount、componentDidUpdate 的调用阶段是一样的;无论 useLayoutEffect 还是 useEffect 都无法在 Javascript 代码加载完成之前执行。
+
+	*useHistory(): useHistory().push(path) 可实现函数组件路由跳转
+      自定义HOOK：必须以use开头
