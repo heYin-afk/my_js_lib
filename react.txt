@@ -32,6 +32,9 @@ Keys 可以在 DOM 中的某些元素被增加或删除的时候帮助 React 识
 React 组件的数据可以通过 componentDidMount 方法中的 Ajax 来获取，当从服务端获取数据时可以将数据存储在 state 中，再用 this.setState 方法重新渲染 UI。
 当使用异步加载数据时，在组件卸载前使用 componentWillUnmount 来取消未完成的请求。  .abord()终止请求
 
+通过create-react-app脚手架搭建的react项目中 跨域   在package.json中添加                  "proxy": "xxxx:****"
+
+create-react-app项目暴露webpack配置文件   	1：git init   	2：git add . 	3：git commit -m 'init'	重新执行一下 npm run eject
 
 hook: 必须写在顶层，如果有判断写在hook内部
 	*useState(data):返回的是两个参数，返回一个 state，以及更新 state 的函数。
